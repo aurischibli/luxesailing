@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Sailing and Land Tours - Authentic Greek Experiences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            color: #333; /* Darker base text color */
+            background-color: #f9fafb; /* Light gray base background */
+        }
+
+        /* Use Playfair Display for headings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Hero Section Video Styling */
+        #hero {
+            position: relative;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden; /* Ensure video doesn't overflow */
+        }
+
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover; /* Cover the area */
+        }
+
+        /* Darker overlay for better text contrast */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.55); /* Slightly darker overlay */
+            z-index: 0;
+        }
+
+        /* Ensure content is above overlay */
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 850px; /* Limit content width */
+        }
+
+        /* Scroll Animation Base Class */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Button styles are now applied directly via Tailwind classes in HTML */
+
+        /* FAQ Accordion Styles */
+        .faq-item summary {
+            cursor: pointer;
+            font-weight: 600; /* Semibold */
+            font-family: 'Inter', sans-serif; /* Ensure summary uses Inter */
+            padding: 1.25rem 1.5rem; /* Increased padding */
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+            list-style: none; /* Remove default marker */
+            position: relative;
+            padding-right: 3rem; /* More space for icon */
+            background-color: #fff; /* Ensure background for hover effect */
+            border-bottom: 1px solid #e5e7eb;
+        }
+         .faq-item:last-child summary {
+             border-bottom: none;
+         }
+        .faq-item summary:hover {
+            background-color: #f9fafb; /* Very light gray hover */
+        }
+        .faq-item summary::after { /* Custom dropdown icon */
+            content: '+';
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem; /* Slightly larger icon */
+            font-weight: 300;
+            color: #2563eb; /* Blue-600 icon */
+            transition: transform 0.3s ease;
+        }
+        .faq-item[open] summary {
+             background-color: #f9fafb;
+             border-bottom-color: transparent; /* Hide border when open */
+        }
+        .faq-item[open] summary::after {
+            transform: translateY(-50%) rotate(45deg);
+        }
+        .faq-item .faq-content {
+            padding: 0.5rem 1.5rem 1.5rem 1.5rem; /* Adjusted padding */
+            background-color: #f9fafb; /* Match open summary background */
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+
+        /* Subtle gold accent */
+        .accent-gold {
+            color: #b48c34; /* A slightly less bright gold */
+        }
+        .border-gold {
+             border-color: #b48c34;
+        }
+         .bg-gold-light {
+             background-color: #fdfbf5; /* Lighter, more subtle cream/gold */
+         }
+
+         /* Improved card spacing */
+         .card {
+             /* Apply padding directly now */
+             background-color: white;
+             padding: 2rem; /* p-8 */
+             border-radius: 0.75rem; /* rounded-xl */
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+         }
+
+         /* Section Padding class removed - applied directly */
+
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <nav class="bg-white shadow-lg sticky top-0 z-50 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-blue-700 font-serif">Luxe Sailing</a>
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="#tours" class="text-gray-700 hover:text-blue-700 px-4 py-2 rounded-md font-medium transition duration-300">Tours</a>
+                <a href="#how-it-works" class="text-gray-700 hover:text-blue-700 px-4 py-2 rounded-md font-medium transition duration-300">How It Works</a>
+                <a href="#faq" class="text-gray-700 hover:text-blue-700 px-4 py-2 rounded-md font-medium transition duration-300">FAQ</a>
+                <a href="#contact" class="ml-4 font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-block text-center bg-blue-700 hover:bg-blue-800 text-white">Request Availability</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        </nav>
+
+    <section id="hero">
+        <video id="hero-video" playsinline autoplay muted loop poster="https://placehold.co/1920x1080/cccccc/333333?text=Loading+Video...">
+            <source src="https://luxesailing.com/wp-content/uploads/2023/11/home-slider.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+        <div class="hero-content container mx-auto px-6 text-white">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight scroll-animate">Experience Authentic Greece, Effortlessly.</h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Forget the crowds and complex planning. Discover Greece's true beauty with bespoke luxury sailing and land tours designed for you.</p>
+            <div class="space-y-4 md:space-y-0 md:space-x-6 scroll-animate" style="transition-delay: 0.4s;">
+                <a href="#contact" class="font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-block text-center bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 text-lg">Request Tour Availability</a>
+                <a href="#tours" class="font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-block text-center bg-white hover:bg-gray-200 text-blue-700 border-2 border-blue-700 px-10 py-4 text-lg">Explore Our Tours</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem" class="py-20 md:py-28 bg-gray-100"> <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-semibold mb-8 scroll-animate">Dreaming of Greece, Dreading the Details?</h2>
+            <p class="text-xl text-gray-600 mb-16 max-w-3xl mx-auto scroll-animate" style="transition-delay: 0.2s;">You desire an unforgettable European escape, but the thought of planning feels like work:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-left">
+                <div class="card scroll-animate" style="transition-delay: 0.3s;">
+                    <h3 class="font-semibold text-2xl mb-3 text-blue-700">Logistical Overwhelm</h3>
+                    <p class="text-gray-600 leading-relaxed">Juggling islands, unreliable ferries, transfers, and endless bookings? It's exhausting.</p>
+                </div>
+                <div class="card scroll-animate" style="transition-delay: 0.4s;">
+                    <h3 class="font-semibold text-2xl mb-3 text-blue-700">Tourist Trap Terrors</h3>
+                    <p class="text-gray-600 leading-relaxed">Craving authentic local culture and hidden gems, not crowded clichés?</p>
+                </div>
+                <div class="card scroll-animate" style="transition-delay: 0.5s;">
+                    <h3 class="font-semibold text-2xl mb-3 text-blue-700">Value Uncertainty</h3>
+                    <p class="text-gray-600 leading-relaxed">Want premium value for your investment, but unsure how to avoid disappointment?</p>
+                </div>
+                <div class="card scroll-animate" style="transition-delay: 0.6s;">
+                    <h3 class="font-semibold text-2xl mb-3 text-blue-700">Time is Precious</h3>
+                    <p class="text-gray-600 leading-relaxed">Too busy with life and work to research and manage every single travel detail?</p>
+                </div>
+            </div>
+            <p class="mt-16 text-xl text-gray-700 font-medium scroll-animate" style="transition-delay: 0.7s;">Your dream holiday shouldn't start with stress.</p>
+        </div>
+    </section>
+
+    <section id="value-proposition" class="py-20 md:py-28 bg-white"> <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-semibold mb-8 scroll-animate">Your Effortless Greek Odyssey Awaits.</h2>
+            <p class="text-xl text-gray-600 mb-16 max-w-3xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Imagine a seamless journey into the authentic heart of Greece. With Luxe Sailing and Land Tours, you will:</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center p-6 scroll-animate" style="transition-delay: 0.3s;">
+                     <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 text-blue-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                        </svg>
+                     </div>
+                    <h3 class="font-semibold text-2xl mb-3">Unlock Real Greece</h3>
+                    <p class="text-gray-600 leading-relaxed">Discover hidden gems, local culture, and authentic experiences far from the usual tourist trail.</p>
+                </div>
+                <div class="text-center p-6 scroll-animate" style="transition-delay: 0.4s;">
+                     <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 text-blue-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                         </svg>
+                     </div>
+                    <h3 class="font-semibold text-2xl mb-3">Travel Without Hassle</h3>
+                    <p class="text-gray-600 leading-relaxed">We handle *everything*, from seamless transfers to curated itineraries, truly door-to-door.</p>
+                </div>
+                <div class="text-center p-6 scroll-animate" style="transition-delay: 0.5s;">
+                     <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 text-blue-700">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                         </svg>
+                     </div>
+                    <h3 class="font-semibold text-2xl mb-3">Savor Every Moment</h3>
+                    <p class="text-gray-600 leading-relaxed">More time relaxing, exploring, and creating memories; less time stressing over logistics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="guide" class="py-20 md:py-28 bg-gold-light"> <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 text-center lg:text-left scroll-animate">
+                     <h2 class="text-4xl md:text-5xl font-semibold mb-6">We Know Greece. We Know Luxury. Let Us Guide You.</h2>
+                     <p class="text-xl text-gray-700 mb-6 leading-relaxed">Planning the perfect Greek escape can feel overwhelming. We get it. As Greek travel specialists, we've navigated the complexities and uncovered the secrets to truly unforgettable journeys.</p>
+                     <p class="text-xl text-gray-700 mb-8 leading-relaxed">We believe experiencing Greece's authentic soul should be seamless and enriching. That's why we created Luxe Sailing and Land Tours – to handle every detail with local expertise, so you can simply immerse yourself in the magic.</p>
+                     <ul class="space-y-3 text-lg text-gray-700 mb-10 text-left inline-block">
+                         <li class="flex items-start"><span class="text-blue-700 mr-2 mt-1">&#10003;</span>Authentic experiences curated by Greek travel experts.</li>
+                         <li class="flex items-start"><span class="text-blue-700 mr-2 mt-1">&#10003;</span>Trusted by discerning travelers (5-star reviews!).</li>
+                         <li class="flex items-start"><span class="text-blue-700 mr-2 mt-1">&#10003;</span>Tours crafted around *your* dreams and preferences.</li>
+                     </ul>
+                     <div>
+                         <a href="#contact" class="font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-block text-center bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 text-lg">Meet Your Guides</a>
+                     </div>
+                </div>
+                <div class="lg:w-1/2 scroll-animate" style="transition-delay: 0.2s;">
+                    <img src="https://luxesailing.com/wp-content/uploads/2018/07/Happy-Place-DJI_0747-copy-600x600.jpg" alt="Happy couple relaxing on a yacht deck" class="rounded-xl shadow-2xl w-full h-auto object-cover aspect-square"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x600/cccccc/333333?text=Luxe+Experience';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits" class="py-20 md:py-28 bg-white"> <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-semibold mb-16 scroll-animate">Your Luxe Greek Experience Includes:</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div class="text-center scroll-animate" style="transition-delay: 0.1s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-700 text-3xl">✓</div>
+                    <h3 class="font-semibold text-2xl mb-3">Effortless Journeys</h3>
+                    <p class="text-gray-600 leading-relaxed">Unpack once, explore turquoise waters or ancient lands without logistical worries.</p>
+                </div>
+                <div class="text-center scroll-animate" style="transition-delay: 0.2s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-700 text-3xl">✓</div>
+                    <h3 class="font-semibold text-2xl mb-3">Authentic Flavours</h3>
+                    <p class="text-gray-600 leading-relaxed">Savour fresh local cuisine and wines onboard or at handpicked tavernas.</p>
+                </div>
+                <div class="text-center scroll-animate" style="transition-delay: 0.3s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-700 text-3xl">✓</div>
+                    <h3 class="font-semibold text-2xl mb-3">Exclusive Vistas</h3>
+                    <p class="text-gray-600 leading-relaxed">Escape the crowds, find hidden coves, quiet villages, and unique perspectives.</p>
+                </div>
+                <div class="text-center scroll-animate" style="transition-delay: 0.4s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-700 text-3xl">✓</div>
+                    <h3 class="font-semibold text-2xl mb-3">Total Relaxation</h3>
+                    <p class="text-gray-600 leading-relaxed">Truly switch off as every detail is managed for you by our expert team.</p>
+                </div>
+                <div class="text-center scroll-animate" style="transition-delay: 0.5s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-700 text-3xl">✓</div>
+                    <h3 class="font-semibold text-2xl mb-3">Unforgettable Memories</h3>
+                    <p class="text-gray-600 leading-relaxed">Create cherished moments on a journey that often feels transformative.</p>
+                </div>
+                <div class="text-center scroll-animate" style="transition-delay: 0.6s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-700 text-3xl">✓</div>
+                    <h3 class="font-semibold text-2xl mb-3">Complete Peace of Mind</h3>
+                    <p class="text-gray-600 leading-relaxed">Travel confidently with 24/7 support and reliable local expertise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonial" class="py-20 md:py-28 bg-blue-700 text-white"> <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto scroll-animate">
+                <img src="https://placehold.co/120x120/ffffff/3B82F6?text=Client" alt="Client Photo" class="w-28 h-28 rounded-full mx-auto mb-8 border-4 border-white shadow-xl">
+                 <p class="text-2xl md:text-3xl italic mb-8 leading-relaxed">"Flawless from start to finish. Luxe Sailing handled everything so we could just relax and soak in Greece. Our only regret? Not staying longer!"</p>
+                <p class="font-semibold text-xl">[Client Name/Group Name]</p>
+                <p class="text-blue-100 text-lg">[Client Location]</p>
+                 <a href="#" class="mt-6 inline-block text-blue-100 hover:text-white underline text-lg">See More Client Stories</a>
+            </div>
+        </div>
+    </section>
+
+     <section id="tours" class="py-20 md:py-28 bg-gray-50"> <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-semibold text-center mb-16 scroll-animate">Sail, Explore, or Both: Your Dream Tour Awaits</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="card flex flex-col scroll-animate" style="transition-delay: 0.1s;">
+                    <img src="https://luxesailing.com/wp-content/uploads/2018/07/SUP-DJI_0722-copy-600x600.jpg" alt="Person paddleboarding near a yacht" class="rounded-lg mb-6 w-full h-72 object-cover"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/333333?text=Sailing+Tour';">
+                    <div class="flex-grow">
+                        <h3 class="text-3xl font-semibold mb-4 text-blue-700">Luxury Sailing Tours</h3>
+                        <p class="text-gray-600 mb-5 leading-relaxed">Glide through the Ionian or Cyclades on premium yachts. Swim, dine, relax, explore charming ports. (7+ nights)</p>
+                    </div>
+                    <a href="#" class="mt-auto font-semibold text-blue-700 hover:underline text-lg">Learn More &rarr;</a>
+                </div>
+                <div class="card flex flex-col scroll-animate" style="transition-delay: 0.2s;">
+                     <img src="https://luxesailing.com/wp-content/uploads/2023/11/Olympia-20230525-IMG_2457_EV-copy-600x600.jpg" alt="Ancient ruins of Olympia, Greece" class="rounded-lg mb-6 w-full h-72 object-cover"
+                          onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/333333?text=Land+Tour';">
+                     <div class="flex-grow">
+                        <h3 class="text-3xl font-semibold mb-4 text-blue-700">Curated Land Tours</h3>
+                        <p class="text-gray-600 mb-5 leading-relaxed">Uncover mainland treasures like the Peloponnese. Enjoy ancient sites, villages, and culinary delights in comfort. (Custom lengths)</p>
+                     </div>
+                     <a href="#" class="mt-auto font-semibold text-blue-700 hover:underline text-lg">Learn More &rarr;</a>
+                </div>
+                <div class="card flex flex-col scroll-animate" style="transition-delay: 0.3s;">
+                    <img src="https://luxesailing.com/wp-content/uploads/2023/10/kastellorizo-600x600.jpg" alt="Colorful harbor town in Greece" class="rounded-lg mb-6 w-full h-72 object-cover"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/333333?text=Bespoke+Tour';">
+                    <div class="flex-grow">
+                        <h3 class="text-3xl font-semibold mb-4 text-blue-700">Bespoke Journeys</h3>
+                        <p class="text-gray-600 mb-5 leading-relaxed">Combine land and sea, tailor to your interests (food, history), or let us create a unique itinerary just for your group.</p>
+                    </div>
+                     <a href="#" class="mt-auto font-semibold text-blue-700 hover:underline text-lg">Design Your Trip &rarr;</a>
+                </div>
+            </div>
+             <p class="text-center mt-16 text-xl text-gray-700 scroll-animate" style="transition-delay: 0.4s;">All tours promise small groups, personalized service, and unforgettable local experiences.</p>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-20 md:py-28 bg-gold-light"> <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-semibold mb-8 scroll-animate">Exceptional Value for Your Bespoke Adventure</h2>
+            <p class="text-xl text-gray-700 mb-12 max-w-3xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Our pricing reflects the high quality, deep inclusions, and truly personalized service you receive. We focus on transparent value.</p>
+            <div class="max-w-3xl mx-auto bg-white p-10 rounded-xl shadow-2xl scroll-animate" style="transition-delay: 0.3s;">
+                <p class="text-gray-700 text-lg mb-5 leading-relaxed">
+                    <strong>Luxury Sailing Tours:</strong> From approx. €3,500 / $3,800 USD per person (7-nights, shared cabin). Varies by season & yacht. Private charters available.
+                </p>
+                <p class="text-gray-700 text-lg mb-8 leading-relaxed">
+                    <strong>Curated Land & Custom Tours:</strong> Priced based on your unique itinerary, duration, and group size.
+                </p>
+                <p class="text-gray-800 font-medium text-lg mb-10">Requesting availability allows us to provide a detailed, personalized quote tailored specifically to your dream trip.</p>
+                <a href="#contact" class="font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-block text-center bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 text-lg">Request My Personalised Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-20 md:py-28 bg-white"> <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-semibold mb-16 scroll-animate">Your Effortless Greek Escape in 3 Simple Steps:</h2>
+            <div class="relative max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
+                <div class="text-center scroll-animate" style="transition-delay: 0.1s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-700 text-white text-3xl font-bold shadow-xl">1</div>
+                    <h3 class="font-semibold text-2xl mb-3">Share Your Dates</h3>
+                    <p class="text-gray-600 leading-relaxed">Click below & tell us when you want to travel and your group size.</p>
+                </div>
+                <div class="text-center scroll-animate" style="transition-delay: 0.2s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-700 text-white text-3xl font-bold shadow-xl">2</div>
+                    <h3 class="font-semibold text-2xl mb-3">Personalise Your Plan</h3>
+                    <p class="text-gray-600 leading-relaxed">We'll connect to discuss your preferences and craft your ideal tour.</p>
+                </div>
+                <div class="text-center scroll-animate" style="transition-delay: 0.3s;">
+                    <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-700 text-white text-3xl font-bold shadow-xl">3</div>
+                    <h3 class="font-semibold text-2xl mb-3">Relax & Anticipate</h3>
+                    <p class="text-gray-600 leading-relaxed">Confirm your custom itinerary. We handle the rest – you just pack!</p>
+                </div>
+                <div class="hidden md:block absolute top-10 left-0 right-0 h-1 bg-blue-200" style="width: 60%; margin: 0 auto; z-index: -1;"></div>
+            </div>
+            <div class="mt-16 scroll-animate" style="transition-delay: 0.4s;">
+                 <a href="#contact" class="font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-block text-center bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 text-lg">Request Tour Availability Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 md:py-28 bg-gray-100"> <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-semibold text-center mb-12 scroll-animate">Your Questions Answered</h2>
+            <div class="max-w-4xl mx-auto space-y-3">
+                <details class="faq-item rounded-lg shadow-md scroll-animate" style="transition-delay: 0.1s;">
+                    <summary class="text-xl">Who are these tours best for?</summary>
+                    <div class="faq-content text-gray-700 mt-3 text-lg leading-relaxed">
+                        Discerning travellers (couples, families, friends) seeking authentic, comfortable, and hassle-free Greek experiences away from the typical tourist crowds. Ideal for those who value unique experiences and prefer not to handle complex logistics themselves.
+                    </div>
+                </details>
+                <details class="faq-item rounded-lg shadow-md scroll-animate" style="transition-delay: 0.2s;">
+                    <summary class="text-xl">What makes Luxe Sailing different?</summary>
+                    <div class="faq-content text-gray-700 mt-3 text-lg leading-relaxed">
+                        Our deep local expertise, focus on authenticity (real food, hidden gems), seamless door-to-door service, commitment to luxury within a small-group setting, and experienced local crew set us apart from DIY travel or large-scale tour operators.
+                    </div>
+                </details>
+                <details class="faq-item rounded-lg shadow-md scroll-animate" style="transition-delay: 0.3s;">
+                    <summary class="text-xl">Are flights included?</summary>
+                    <div class="faq-content text-gray-700 mt-3 text-lg leading-relaxed">
+                        We manage all necessary transfers *within* Greece as part of your tour package for a seamless experience. While most guests arrange their own international flights, we can certainly assist with booking internal Greek flights or coordinate with our trusted travel partners for international airfare if needed – just let us know!
+                    </div>
+                </details>
+                 <details class="faq-item rounded-lg shadow-md scroll-animate" style="transition-delay: 0.4s;">
+                    <summary class="text-xl">Is travel insurance mandatory?</summary>
+                    <div class="faq-content text-gray-700 mt-3 text-lg leading-relaxed">
+                        Yes, for your peace of mind and protection against unforeseen circumstances, all guests are required to have comprehensive travel insurance covering trip cancellation, medical emergencies, and personal belongings.
+                    </div>
+                </details>
+                 <details class="faq-item rounded-lg shadow-md scroll-animate" style="transition-delay: 0.5s;">
+                    <summary class="text-xl">How much planning do *I* need to do?</summary>
+                    <div class="faq-content text-gray-700 mt-3 text-lg leading-relaxed">
+                        Very little! Your main task is to tell us your desired travel dates, group size, and general preferences during our consultation. From there, we handle the intricate itinerary planning, bookings, and logistics, presenting you with a complete plan for approval.
+                    </div>
+                </details>
+            </div>
+             <div class="text-center mt-12 scroll-animate" style="transition-delay: 0.6s;">
+                 <a href="#contact" class="font-semibold text-blue-700 hover:underline text-lg">Have More Questions? Contact Us &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 md:py-28 bg-blue-800 text-white text-center" style="background: linear-gradient(rgba(30, 64, 175, 0.9), rgba(30, 58, 138, 0.9)), url('https://luxesailing.com/wp-content/uploads/2023/11/20230916_072230-copy-600x600.jpg') no-repeat center center; background-size: cover; background-attachment: fixed;"> <div class="container mx-auto px-6 scroll-animate">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Don't Just Visit Greece. Experience It.</h2>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-blue-100">Ready for an effortless journey into the heart of authentic Greece? Let our experts craft your perfect luxury sailing or land tour. Get your personalized itinerary today.</p>
+            <a href="#" class="font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-block text-center bg-white hover:bg-gray-200 text-blue-700 border-2 border-blue-700 text-xl px-12 py-5">Request Tour Availability</a>
+            <div class="mt-8">
+                 <a href="#" class="text-blue-100 hover:text-white underline text-lg">View Sample Itineraries</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-16">
+        <div class="container mx-auto px-6 text-center">
+             <a href="#" class="text-3xl font-bold text-white font-serif mb-6 inline-block">Luxe Sailing</a>
+             <div class="flex justify-center space-x-6 mb-6">
+                 <a href="#" class="hover:text-white">Facebook</a>
+                 <a href="#" class="hover:text-white">Instagram</a>
+                 <a href="#" class="hover:text-white">LinkedIn</a>
+             </div>
+            <p class="mb-4">&copy; 2025 Luxe Sailing and Land Tours. All Rights Reserved.</p>
+            <div class="space-x-4 text-sm">
+                 <a href="#" class="hover:text-white">Privacy Policy</a>
+                 <span>|</span>
+                 <a href="#" class="hover:text-white">Terms of Service</a>
+                 <span>|</span>
+                 <a href="#" class="hover:text-white">Contact Us</a>
+             </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Intersection Observer for scroll animations
+        const animatedElements = document.querySelectorAll('.scroll-animate');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        animatedElements.forEach(el => {
+            observer.observe(el);
+        });
+
+         // Smooth scrolling for anchor links (with header offset)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.pathname === window.location.pathname && this.hash) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        const headerOffset = document.querySelector('nav')?.offsetHeight || 0;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Basic FAQ Accordion Logic
+        // Add more sophisticated logic if needed (e.g., closing others)
+
+        // Mobile menu toggle logic placeholder
+        // const mobileMenuButton = document.querySelector('.md\\:hidden button');
+        // const mobileMenu = document.querySelector('#mobile-menu'); // Assuming you add an ID to the mobile menu div
+        // mobileMenuButton.addEventListener('click', () => {
+        //    mobileMenu.classList.toggle('hidden'); // Or your preferred toggle mechanism
+        // });
+
+    </script>
+
+</body>
+</html>
